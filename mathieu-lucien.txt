@@ -17,4 +17,4 @@
 #17 SELECT m.id AS 'id_membre', hm.date AS 'histo_date' FROM membre m , historique_membre hm WHERE m.id = hm.membre_id AND hm.film_id IN(642,453) ORDER BY `id_membre` ASC
 #18 Select id, titre, resum FROM film WHERE id = 42
 #19 SELECT UPPER(d.nom) AS nom_distrib , (SELECT COUNT(f.distrib_id) FROM film f WHERE f.distrib_id = d.id) AS 'nombre_films', (SELECT SUM(f.duree_min) FROM film f WHERE f.distrib_id = d.id) AS'duree_min' FROM distrib d ORDER BY nombre_films  DESC
-#20
+#20 SELECT (CONCAT(UPPER(LEFT(fp.nom,1)), LOWER(SUBSTRING(fp.nom,2)))) AS 'nom',(CONCAT(UPPER(LEFT(fp.prenom,1)),LOWER(SUBSTRING(fp.prenom,2)))) AS 'prenom', (SELECT COUNT(hm.membre_id) FROM historique_membre hm WHERE hm.membre_id=fp.id) AS 'nombre_film', (SELECT m.date_dernier_film FROM membre m WHERE m.id=fp.id) AS 'date_dernier_film', (SELECT f.titre FROM film f,membre m WHERE m.id=fp.id AND m.dernier_film_id = f.id) AS 'nom_dernier_film' FROM fiche_personne fp HAVING nombre_film > 0 ORDER BY nombre_film  DESC
